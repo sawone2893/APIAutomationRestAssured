@@ -2,11 +2,13 @@ package apiTest;
 
 import org.testng.annotations.Test;
 
+import api.pojo.Brands;
 import api.services.BrandsService;
 import base.TestBase;
-import utililties.PayloadGenerator;
+import utililties.DataGenerator;
+import utililties.PojoObjectToGson;
 
-public class TC1 extends TestBase {
+public class TestAPIBrands extends TestBase {
 
 	@Test(enabled = false)
 	public void validateGetAllBrands() {
@@ -17,10 +19,13 @@ public class TC1 extends TestBase {
 
 	@Test
 	public void validateCreateBrands() {
-		BrandsService
-				.createBrand(PayloadGenerator.generateStringPayload("./src/main/java/resources/payload/brand.json"));
+		Brands brand1 = new Brands();
+		brand1.setName(DataGenerator.generateData().company().name());
+		brand1.setDescription(DataGenerator.generateData().company().industry());
+		BrandsService.createBrand(PojoObjectToGson.convertToGson(brand1));
 		BrandsService.printBrandAPIResponse();
 		BrandsService.validateBrandsAPIStatusCode(200);
+		BrandsService.validateCteatedBarndDetails(brand1);
 	}
 
 }
