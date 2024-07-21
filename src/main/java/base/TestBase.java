@@ -2,9 +2,9 @@ package base;
 
 import org.testng.annotations.BeforeSuite;
 
+import api.config.ConfigProp;
 import base.actionInterface.IActionAPI;
 import base.driverFactory.DriverFactory;
-import config.ConfigProp;
 
 public class TestBase {
 

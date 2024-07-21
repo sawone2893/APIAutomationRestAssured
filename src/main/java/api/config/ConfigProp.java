@@ -1,9 +1,11 @@
-package config;
+package api.config;
 
 import utililties.PropertyManager;
 
 public class ConfigProp {
 
+	public static final String PROP_FILE_PATH = "./src/main/java/resources/";
+	public static final String PAYLOAD_FILE_PATH = "./src/main/java/resources/payload/";
 	public static final String CONFIG_ENV = "qaEnvConfig";
 	public static final String API_DRIVER = "RestAssured";
 	public static final String BASE_URI = PropertyManager.getAnyProperty(CONFIG_ENV, "BASEURI");

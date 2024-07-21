@@ -3,8 +3,8 @@ package api.services;
 import org.testng.Assert;
 
 import api.endpoint.Routes;
-import api.pojo.Brands;
 import base.TestBase;
+import utililties.JsonFileManager;
 
 public class BrandsService extends TestBase {
 
@@ -21,7 +21,7 @@ public class BrandsService extends TestBase {
 	}
 
 	public static void updateBrand(String brandId, String payload) {
-		apiInstannce.postRequest(Routes.POST_BRANDS + "/" + brandId, payload);
+		apiInstannce.putRequest(Routes.POST_BRANDS + "/" + brandId, payload);
 	}
 
 	public static void deleteBrand(String brandId) {
@@ -40,9 +40,11 @@ public class BrandsService extends TestBase {
 		return apiInstannce.parseResponseJsonObject().getString("_id");
 	}
 
-	public static void validateCteatedBarndDetails(Brands brand) {
-		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("name"), brand.getName());
-		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("description"), brand.getDescription());
+	public static void validateBrandDetails(String payloadName) {
+		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("name"),
+				JsonFileManager.getJsonData(payloadName, "name"));
+		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("description"),
+				JsonFileManager.getJsonData(payloadName, "description"));
 	}
 
 }
