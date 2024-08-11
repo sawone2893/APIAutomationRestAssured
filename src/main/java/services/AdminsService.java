@@ -1,10 +1,10 @@
-package api.services;
+package services;
 
 import org.json.JSONObject;
 import org.testng.Assert;
 
-import api.endpoint.Routes;
 import base.TestBase;
+import endpoint.Routes;
 import utililties.JsonFileManager;
 
 public class AdminsService extends TestBase {

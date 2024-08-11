@@ -1,4 +1,4 @@
-package api.services;
+package services;
 
 import utililties.DataGenerator;
 import utililties.JsonFileManager;

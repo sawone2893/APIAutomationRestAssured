@@ -1,9 +1,6 @@
-package base.driverFactory;
+package core;
 
-import base.actionInterface.IActionAPI;
-import base.modal.RestAssuredActions;
-
-public class DriverFactory {
+public class APIToolFactory {
 
 	static IActionAPI actionAPI = null;
 

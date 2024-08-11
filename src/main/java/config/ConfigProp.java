@@ -1,4 +1,4 @@
-package api.config;
+package config;
 
 import utililties.PropertyManager;
 

@@ -2,9 +2,9 @@ package apiTest;
 
 import org.testng.annotations.Test;
 
-import api.services.CommonService;
-import api.services.UsersService;
 import base.TestBase;
+import services.CommonService;
+import services.UsersService;
 import utililties.DataGenerator;
 import utililties.JsonFileManager;
 

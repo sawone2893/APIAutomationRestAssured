@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import org.json.JSONObject;
 
-import api.config.ConfigProp;
+import config.ConfigProp;
 
 public class JsonFileManager {
 

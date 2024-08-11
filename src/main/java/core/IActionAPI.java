@@ -1,4 +1,4 @@
-package base.actionInterface;
+package core;
 
 import java.util.Map;
 

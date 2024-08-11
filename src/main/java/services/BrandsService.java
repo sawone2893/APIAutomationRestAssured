@@ -1,9 +1,9 @@
-package api.services;
+package services;
 
 import org.testng.Assert;
 
-import api.endpoint.Routes;
 import base.TestBase;
+import endpoint.Routes;
 import utililties.JsonFileManager;
 
 public class BrandsService extends TestBase {

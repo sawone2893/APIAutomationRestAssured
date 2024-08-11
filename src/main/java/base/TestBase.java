@@ -2,9 +2,9 @@ package base;
 
 import org.testng.annotations.BeforeSuite;
 
-import api.config.ConfigProp;
-import base.actionInterface.IActionAPI;
-import base.driverFactory.DriverFactory;
+import config.ConfigProp;
+import core.APIToolFactory;
+import core.IActionAPI;
 
 public class TestBase {
 
@@ -12,6 +12,6 @@ public class TestBase {
 
 	@BeforeSuite
 	public static void initAPI() {
-		apiInstannce = DriverFactory.apiDriverInstance(ConfigProp.API_DRIVER, ConfigProp.BASE_URI);
+		apiInstannce = APIToolFactory.apiDriverInstance(ConfigProp.API_DRIVER, ConfigProp.BASE_URI);
 	}
 }

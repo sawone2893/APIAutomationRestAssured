@@ -1,11 +1,10 @@
-package base.modal;
+package core;
 
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import base.actionInterface.IActionAPI;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

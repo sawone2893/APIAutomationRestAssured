@@ -1,4 +1,4 @@
-package api.endpoint;
+package endpoint;
 
 public class Routes {
 
