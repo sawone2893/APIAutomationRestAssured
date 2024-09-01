@@ -13,6 +13,6 @@ public class TestBase {
 
 	@BeforeSuite
 	public static void initAPI() {
-		apiInstannce = APIToolFactory.apiDriverInstance(ConfigProp.API_DRIVER, ConfigProp.BASE_URI);
+		apiInstannce = APIToolFactory.apiDriverInstance(ConfigProp.TOOL_NAME, ConfigProp.BASE_URI);
 	}
 }

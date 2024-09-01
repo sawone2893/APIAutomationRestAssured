@@ -38,6 +38,5 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="selAutoCore-0.0.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
