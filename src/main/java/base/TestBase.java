@@ -3,8 +3,9 @@ package base;
 import org.testng.annotations.BeforeSuite;
 
 import config.ConfigProp;
-import core.APIToolFactory;
-import core.IActionAPI;
+import io.github.shabryn2893.selAutoCore.apiCore.APIToolFactory;
+import io.github.shabryn2893.selAutoCore.apiCore.IActionAPI;
+
 
 public class TestBase {
 
