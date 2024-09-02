@@ -3,16 +3,18 @@ package base;
 import org.testng.annotations.BeforeSuite;
 
 import config.ConfigProp;
-import io.github.shabryn2893.selAutoCore.apiCore.APIToolFactory;
-import io.github.shabryn2893.selAutoCore.apiCore.IActionAPI;
+import serviceObjects.ServiceObjectsManager;
 
 
 public class TestBase {
 
-	public static IActionAPI apiInstannce = null;
+	public static ServiceObjectsManager serviceObjectsManager=null;
+	public static BaseClass baseClass=null;
 
 	@BeforeSuite
-	public static void initAPI() {
-		apiInstannce = APIToolFactory.apiDriverInstance(ConfigProp.TOOL_NAME, ConfigProp.BASE_URI);
+	public  void initAPI() {
+		baseClass= new BaseClass();
+		baseClass.init(ConfigProp.TOOL_NAME, ConfigProp.BASE_URI);
+		serviceObjectsManager=new ServiceObjectsManager();
 	}
 }

@@ -2,45 +2,59 @@ package services;
 
 import org.testng.Assert;
 
-import base.TestBase;
+import base.BaseClass;
 import endpoint.Routes;
 import utililties.JsonFileManager;
 
-public class BrandsService extends TestBase {
+public class BrandsService extends BaseClass {
 
-	public static void getAllBrands() {
+	private static BrandsService brandsService = null;
+
+	private BrandsService() {
+
+	}
+
+	public static BrandsService getInstance() {
+		if (brandsService == null) {
+			brandsService = new BrandsService();
+		}
+
+		return brandsService;
+	}
+
+	public void getAllBrands() {
 		apiInstannce.getRequest(Routes.GET_ALL_BRANDS);
 	}
 
-	public static void getBrand(String brandId) {
+	public void getBrand(String brandId) {
 		apiInstannce.getRequest(Routes.GET_BRANDS + "/" + brandId);
 	}
 
-	public static void createBrand(String payload) {
+	public void createBrand(String payload) {
 		apiInstannce.postRequest(Routes.POST_BRANDS, payload);
 	}
 
-	public static void updateBrand(String brandId, String payload) {
+	public void updateBrand(String brandId, String payload) {
 		apiInstannce.putRequest(Routes.POST_BRANDS + "/" + brandId, payload);
 	}
 
-	public static void deleteBrand(String brandId) {
+	public void deleteBrand(String brandId) {
 		apiInstannce.deleteRequest(Routes.DELETE_BRANDS + "/" + brandId);
 	}
 
-	public static void printBrandAPIResponse() {
+	public void printBrandAPIResponse() {
 		apiInstannce.printResponse();
 	}
 
-	public static void validateBrandsAPIStatusCode(int expectedStatusCode) {
+	public void validateBrandsAPIStatusCode(int expectedStatusCode) {
 		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
 	}
 
-	public static String getBrandId() {
+	public String getBrandId() {
 		return apiInstannce.parseResponseJsonObject().getString("_id");
 	}
 
-	public static void validateBrandDetails(String payloadName) {
+	public void validateBrandDetails(String payloadName) {
 		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("name"),
 				JsonFileManager.getJsonData(payloadName, "name"));
 		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("description"),

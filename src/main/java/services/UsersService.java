@@ -3,37 +3,51 @@ package services;
 import org.json.JSONObject;
 import org.testng.Assert;
 
-import base.TestBase;
+import base.BaseClass;
 import endpoint.Routes;
 import utililties.JsonFileManager;
 
-public class UsersService extends TestBase {
+public class UsersService extends BaseClass {
 
-	public static void signUpUser(String payload) {
+	private static UsersService usersService = null;
+
+	private UsersService() {
+
+	}
+
+	public static UsersService getInstance() {
+		if (usersService == null) {
+			usersService = new UsersService();
+		}
+
+		return usersService;
+	}
+
+	public void signUpUser(String payload) {
 		apiInstannce.postRequest(Routes.POST_SIGNUP_USER, payload);
 	}
 
-	public static void loginUser(String payload) {
+	public void loginUser(String payload) {
 		apiInstannce.postRequest(Routes.POST_LOGIN_USER, payload);
 	}
 
-	public static void resetPassword(String payload) {
+	public void resetPassword(String payload) {
 		apiInstannce.postRequest(Routes.POST_USER_RESET_PASSWORD, payload);
 	}
 
-	public static void recoverPassword(String payload) {
+	public void recoverPassword(String payload) {
 		apiInstannce.postRequest(Routes.POST_USER_RECOVER_PASSWORD, payload);
 	}
 
-	public static void printAPIResponse() {
+	public void printAPIResponse() {
 		apiInstannce.printResponse();
 	}
 
-	public static void validateUsersAPIStatusCode(int expectedStatusCode) {
+	public void validateUsersAPIStatusCode(int expectedStatusCode) {
 		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
 	}
 
-	public static void validateUserDetails(String payloadName) {
+	public void validateUserDetails(String payloadName) {
 		JSONObject userRes = apiInstannce.parseResponseJsonObject();
 		JSONObject info = (JSONObject) userRes.get("info");
 		System.out.println("Expected Email: " + JsonFileManager.getJsonData(payloadName, "email"));
@@ -44,7 +58,7 @@ public class UsersService extends TestBase {
 		Assert.assertEquals(info.getString("username"), JsonFileManager.getJsonData(payloadName, "username"));
 	}
 
-	public static String getUsersToken() {
+	public String getUsersToken() {
 		return apiInstannce.parseResponseJsonObject().getString("token");
 	}
 

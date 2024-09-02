@@ -3,37 +3,52 @@ package services;
 import org.json.JSONObject;
 import org.testng.Assert;
 
+import base.BaseClass;
 import base.TestBase;
 import endpoint.Routes;
 import utililties.JsonFileManager;
 
-public class AdminsService extends TestBase {
+public class AdminsService extends BaseClass {
 
-	public static void signUpAdmin(String payload) {
+	private static AdminsService adminsService=null;
+	
+	private AdminsService() {
+		
+	}
+	
+	public static AdminsService getInstance() {
+		if(adminsService==null) {
+			adminsService= new AdminsService();
+		}
+		
+		return adminsService;
+	}
+	
+	public  void signUpAdmin(String payload) {
 		apiInstannce.postRequest(Routes.POST_SIGNUP_ADMIN, payload);
 	}
 
-	public static void loginAdmin(String payload) {
+	public  void loginAdmin(String payload) {
 		apiInstannce.postRequest(Routes.POST_LOGIN_ADMIN, payload);
 	}
 
-	public static void resetPassword(String payload) {
+	public  void resetPassword(String payload) {
 		apiInstannce.postRequest(Routes.POST_ADMIN_RESET_PASSWORD, payload);
 	}
 
-	public static void recoverPassword(String payload) {
+	public  void recoverPassword(String payload) {
 		apiInstannce.postRequest(Routes.POST_ADMIN_RECOVER_PASSWORD, payload);
 	}
 
-	public static void printAPIResponse() {
+	public  void printAPIResponse() {
 		apiInstannce.printResponse();
 	}
 
-	public static void validateAdminsAPIStatusCode(int expectedStatusCode) {
+	public  void validateAdminsAPIStatusCode(int expectedStatusCode) {
 		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
 	}
 
-	public static void validateAdminDetails(String payloadName) {
+	public  void validateAdminDetails(String payloadName) {
 		JSONObject AdminRes = apiInstannce.parseResponseJsonObject();
 		JSONObject info = (JSONObject) AdminRes.get("info");
 		System.out.println("Expected Email: " + JsonFileManager.getJsonData(payloadName, "email"));
@@ -44,7 +59,7 @@ public class AdminsService extends TestBase {
 		Assert.assertEquals(info.getString("Adminname"), JsonFileManager.getJsonData(payloadName, "Adminname"));
 	}
 
-	public static String getAdminsToken() {
+	public  String getAdminsToken() {
 		return apiInstannce.parseResponseJsonObject().getString("token");
 	}
 
