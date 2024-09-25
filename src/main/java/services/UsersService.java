@@ -1,14 +1,18 @@
 package services;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.json.JSONObject;
 import org.testng.Assert;
 
 import base.BaseClass;
 import endpoint.Routes;
-import utililties.JsonFileManager;
+import io.github.shabryn2893.utils.JsonFileManager;
 
-public class UsersService extends BaseClass {
+public class UsersService{
 
+	private static final Logger logger = Logger.getLogger(UsersService.class.getName());
 	private static UsersService usersService = null;
 
 	private UsersService() {
@@ -24,42 +28,48 @@ public class UsersService extends BaseClass {
 	}
 
 	public void signUpUser(String payload) {
-		apiInstannce.postRequest(Routes.POST_SIGNUP_USER, payload);
+		BaseClass.doPostRequest(Routes.POST_SIGNUP_USER, payload);
 	}
 
 	public void loginUser(String payload) {
-		apiInstannce.postRequest(Routes.POST_LOGIN_USER, payload);
+		BaseClass.doPostRequest(Routes.POST_LOGIN_USER, payload);
 	}
 
 	public void resetPassword(String payload) {
-		apiInstannce.postRequest(Routes.POST_USER_RESET_PASSWORD, payload);
+		BaseClass.doPostRequest(Routes.POST_USER_RESET_PASSWORD, payload);
 	}
 
 	public void recoverPassword(String payload) {
-		apiInstannce.postRequest(Routes.POST_USER_RECOVER_PASSWORD, payload);
+		BaseClass.doPostRequest(Routes.POST_USER_RECOVER_PASSWORD, payload);
 	}
 
-	public void printAPIResponse() {
-		apiInstannce.printResponse();
+	public void printUsersAPIResponse() {
+		BaseClass.doPrintAPIResponse();
 	}
 
 	public void validateUsersAPIStatusCode(int expectedStatusCode) {
-		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
+		Assert.assertEquals(BaseClass.doGetAPIStatusCode(), expectedStatusCode);
 	}
 
 	public void validateUserDetails(String payloadName) {
-		JSONObject userRes = apiInstannce.parseResponseJsonObject();
-		JSONObject info = (JSONObject) userRes.get("info");
-		System.out.println("Expected Email: " + JsonFileManager.getJsonData(payloadName, "email"));
-		System.out.println("Expected Password: " + JsonFileManager.getJsonData(payloadName, "password"));
-		System.out.println("Expected Username: " + JsonFileManager.getJsonData(payloadName, "username"));
+		JSONObject userRes = BaseClass.doParseResponseJsonObject();
+		JSONObject infoData = (JSONObject) userRes.get("info");
+		
+		String eMail=JsonFileManager.getJsonData(payloadName, "email");
+		String paswd=JsonFileManager.getJsonData(payloadName, "password");
+		String userName= JsonFileManager.getJsonData(payloadName, "username");
+		
+		logger.log(Level.INFO,"Expected Email: {0}",eMail);
+		logger.log(Level.INFO,"Expected Password: {0}", paswd);
+		logger.log(Level.INFO,"Expected Adminname: {0}",userName);
 
-		Assert.assertEquals(info.getString("email"), JsonFileManager.getJsonData(payloadName, "email"));
-		Assert.assertEquals(info.getString("username"), JsonFileManager.getJsonData(payloadName, "username"));
+
+		Assert.assertEquals(infoData.getString("email"), eMail);
+		Assert.assertEquals(infoData.getString("username"), userName);
 	}
 
 	public String getUsersToken() {
-		return apiInstannce.parseResponseJsonObject().getString("token");
+		return BaseClass.doParseResponseJsonObject().getString("token");
 	}
 
 }

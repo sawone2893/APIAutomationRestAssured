@@ -1,15 +1,18 @@
 package services;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.json.JSONObject;
 import org.testng.Assert;
 
 import base.BaseClass;
-import base.TestBase;
 import endpoint.Routes;
-import utililties.JsonFileManager;
+import io.github.shabryn2893.utils.JsonFileManager;
 
-public class AdminsService extends BaseClass {
+public class AdminsService{
 
+	private static final Logger logger = Logger.getLogger(AdminsService.class.getName());
 	private static AdminsService adminsService=null;
 	
 	private AdminsService() {
@@ -25,42 +28,47 @@ public class AdminsService extends BaseClass {
 	}
 	
 	public  void signUpAdmin(String payload) {
-		apiInstannce.postRequest(Routes.POST_SIGNUP_ADMIN, payload);
+		BaseClass.doPostRequest(Routes.POST_SIGNUP_ADMIN, payload);
 	}
 
 	public  void loginAdmin(String payload) {
-		apiInstannce.postRequest(Routes.POST_LOGIN_ADMIN, payload);
+		BaseClass.doPostRequest(Routes.POST_LOGIN_ADMIN, payload);
 	}
 
 	public  void resetPassword(String payload) {
-		apiInstannce.postRequest(Routes.POST_ADMIN_RESET_PASSWORD, payload);
+		BaseClass.doPostRequest(Routes.POST_ADMIN_RESET_PASSWORD, payload);
 	}
 
 	public  void recoverPassword(String payload) {
-		apiInstannce.postRequest(Routes.POST_ADMIN_RECOVER_PASSWORD, payload);
+		BaseClass.doPostRequest(Routes.POST_ADMIN_RECOVER_PASSWORD, payload);
 	}
 
-	public  void printAPIResponse() {
-		apiInstannce.printResponse();
+	public  void printAdminsAPIResponse() {
+		BaseClass.doPrintAPIResponse();
 	}
 
 	public  void validateAdminsAPIStatusCode(int expectedStatusCode) {
-		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
+		Assert.assertEquals(BaseClass.doGetAPIStatusCode(), expectedStatusCode);
 	}
 
 	public  void validateAdminDetails(String payloadName) {
-		JSONObject AdminRes = apiInstannce.parseResponseJsonObject();
-		JSONObject info = (JSONObject) AdminRes.get("info");
-		System.out.println("Expected Email: " + JsonFileManager.getJsonData(payloadName, "email"));
-		System.out.println("Expected Password: " + JsonFileManager.getJsonData(payloadName, "password"));
-		System.out.println("Expected Adminname: " + JsonFileManager.getJsonData(payloadName, "Adminname"));
+		JSONObject adminRes = BaseClass.doParseResponseJsonObject();
+		JSONObject infoData = (JSONObject) adminRes.get("info");
+		
+		String eMail=JsonFileManager.getJsonData(payloadName, "email");
+		String paswd=JsonFileManager.getJsonData(payloadName, "password");
+		String adminName= JsonFileManager.getJsonData(payloadName, "Adminname");
+		
+		logger.log(Level.INFO,"Expected Email: {0}",eMail);
+		logger.log(Level.INFO,"Expected Password: {0}", paswd);
+		logger.log(Level.INFO,"Expected Adminname: {0}",adminName);
 
-		Assert.assertEquals(info.getString("email"), JsonFileManager.getJsonData(payloadName, "email"));
-		Assert.assertEquals(info.getString("Adminname"), JsonFileManager.getJsonData(payloadName, "Adminname"));
+		Assert.assertEquals(infoData.getString("email"), eMail);
+		Assert.assertEquals(infoData.getString("Adminname"), adminName);
 	}
 
 	public  String getAdminsToken() {
-		return apiInstannce.parseResponseJsonObject().getString("token");
+		return BaseClass.doParseResponseJsonObject().getString("token");
 	}
 
 }

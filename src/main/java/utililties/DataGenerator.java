@@ -3,12 +3,10 @@ package utililties;
 import com.github.javafaker.Faker;
 
 public class DataGenerator {
-
-	private static Faker faker;
-
+	private DataGenerator() {}
+	
 	public static Faker generateData() {
-		faker = new Faker();
-		return faker;
+		return new Faker();
 	}
 
 }

@@ -4,9 +4,9 @@ import org.testng.Assert;
 
 import base.BaseClass;
 import endpoint.Routes;
-import utililties.JsonFileManager;
+import io.github.shabryn2893.utils.JsonFileManager;
 
-public class BrandsService extends BaseClass {
+public class BrandsService{
 
 	private static BrandsService brandsService = null;
 
@@ -23,41 +23,41 @@ public class BrandsService extends BaseClass {
 	}
 
 	public void getAllBrands() {
-		apiInstannce.getRequest(Routes.GET_ALL_BRANDS);
+		BaseClass.doGetRequest(Routes.GET_ALL_BRANDS);
 	}
 
 	public void getBrand(String brandId) {
-		apiInstannce.getRequest(Routes.GET_BRANDS + "/" + brandId);
+		BaseClass.doGetRequest(Routes.GET_BRANDS + "/" + brandId);
 	}
 
 	public void createBrand(String payload) {
-		apiInstannce.postRequest(Routes.POST_BRANDS, payload);
+		BaseClass.doPostRequest(Routes.POST_BRANDS, payload);
 	}
 
 	public void updateBrand(String brandId, String payload) {
-		apiInstannce.putRequest(Routes.POST_BRANDS + "/" + brandId, payload);
+		BaseClass.doPutRequest(Routes.POST_BRANDS + "/" + brandId, payload);
 	}
 
 	public void deleteBrand(String brandId) {
-		apiInstannce.deleteRequest(Routes.DELETE_BRANDS + "/" + brandId);
+		BaseClass.doDeleteRequest(Routes.DELETE_BRANDS + "/" + brandId);
 	}
 
 	public void printBrandAPIResponse() {
-		apiInstannce.printResponse();
+		BaseClass.doPrintAPIResponse();
 	}
 
 	public void validateBrandsAPIStatusCode(int expectedStatusCode) {
-		Assert.assertEquals(apiInstannce.getStatusCode(), expectedStatusCode);
+		Assert.assertEquals(BaseClass.doGetAPIStatusCode(), expectedStatusCode);
 	}
 
 	public String getBrandId() {
-		return apiInstannce.parseResponseJsonObject().getString("_id");
+		return BaseClass.doParseResponseJsonObject().getString("_id");
 	}
 
 	public void validateBrandDetails(String payloadName) {
-		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("name"),
+		Assert.assertEquals(BaseClass.doParseResponseJsonObject().getString("name"),
 				JsonFileManager.getJsonData(payloadName, "name"));
-		Assert.assertEquals(apiInstannce.parseResponseJsonObject().getString("description"),
+		Assert.assertEquals(BaseClass.doParseResponseJsonObject().getString("description"),
 				JsonFileManager.getJsonData(payloadName, "description"));
 	}
 

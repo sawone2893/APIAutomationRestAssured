@@ -3,6 +3,8 @@ package utililties;
 import com.google.gson.Gson;
 
 public class PojoObjectToGson {
+	
+	private PojoObjectToGson() {}
 
 	public static String convertToGson(Object obj) {
 		Gson gson = new Gson();

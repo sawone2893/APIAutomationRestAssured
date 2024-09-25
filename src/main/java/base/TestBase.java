@@ -8,13 +8,14 @@ import serviceObjects.ServiceObjectsManager;
 
 public class TestBase {
 
-	public static ServiceObjectsManager serviceObjectsManager=null;
-	public static BaseClass baseClass=null;
-
+	public static final ServiceObjectsManager serviceObjectsManager = new ServiceObjectsManager();
+	
 	@BeforeSuite
-	public  void initAPI() {
-		baseClass= new BaseClass();
-		baseClass.init(ConfigProp.TOOL_NAME, ConfigProp.BASE_URI);
-		serviceObjectsManager=new ServiceObjectsManager();
+	public void initAPI() {
+		BaseClass.init(ConfigProp.TOOL_NAME, ConfigProp.BASE_URI);
+	}
+	
+	public String getPayLoadPath(String payLoadName) {
+		return ConfigProp.PAYLOAD_FILE_PATH+payLoadName+".json";
 	}
 }
